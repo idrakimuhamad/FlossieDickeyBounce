@@ -5,22 +5,27 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var customersController = {
-	_generate: function(name, deals, cb) {
+	_add: function(name, deals, cb) {
 		if (name && deals) {
-			Customers.generate({
+			Customers.add({
 				name: name,
 	      deals: deals
 			}, cb);
 		}
-		// 	}, function (err, customer) {
-	  //
-		//
-	  //     return res.ok('Customer created successfully');
-	  //   });
-		// } else {
-		// 	res.badRequest('Missing required parameter name and deals');
-		// }
 	},
+
+  add: function(req, res) {
+    var name = req.params('name'),
+        deals = req.params('deals');
+
+    if (name && deals) {
+      customersController._add(name, deals, function(err, result) {
+        if (err) return res.negotiate(err);
+
+        res.ok('Customer added');
+      });
+    }
+  },
 
 	generateDefault: function(req, res) {
 		var customers = [
@@ -36,22 +41,105 @@ var customersController = {
 			if (err) return res.negotiate(err);
 
 			if (success) {
-				customers.forEach(function(customer) {
-					if (customer.name && customer.deals) {
-						var c = customersController._generate(customer.name, customer.deals, function(err, result) {
-							// res.negotiate() will determine if this is a validation error
-				      // or some kind of unexpected server error, then call `res.badRequest()`
-				      // or `res.serverError()` accordingly.
-				      if (err) {
-								sails.log('Customer not created for ' + customer.name);
-							} else {
-								sails.log('Customer created');
-							}
-						});
-					}
-				});
 
-				res.ok('Done');
+        // add default ads
+        AdsService.addDefaultAd(function() {
+
+          // add customer
+          customers.forEach(function(customer) {
+            // set the deals for customer
+            if (customer.name === 'unilever') {
+              customer.deals = [
+                {
+                  name: "3 for 2 deals on Classic Ads",
+                  dealsType: "classic",
+                  adId: "classic",
+                  rule: [
+                    {
+                      minItem: 3,
+                      forItemPrice: 2
+                    }
+                  ]
+                }
+              ]
+            } else if (customer.name === 'apple') {
+              customer.deals = [
+                {
+                  name: "Standout Ads for $299.99",
+                  dealsType: "standout",
+                  adId: "standout",
+                  rule: [
+                    {
+                      pricePerItem: 299.99
+                    }
+                  ]
+                }
+              ];
+            } else if (customer.name === 'nike') {
+              customer.deals = [
+                {
+                  name: "Premium Ads for 4 or more ads",
+                  dealsType: "premium",
+                  adId: "premium",
+                  rule: [
+                    {
+                      minItem: 4,
+                      pricePerItem: 379.99
+                    }
+                  ]
+                }
+              ];
+            } else if (customer.name === 'ford') {
+              customer.deals = [
+                {
+                  name: "5 for 4 deal on Classic ads",
+                  dealsType: "classic",
+                  adId: "classic",
+                  rule: [
+                    {
+                      minItem: 5,
+                      forItemPrice: 4
+                    }
+                  ]
+                }, {
+                  name: "Standout Ads for $309.99",
+                  dealsType: "standout",
+                  adId: "standout",
+                  rule: [
+                    {
+                      pricePerItem: 309.99
+                    }
+                  ]
+                }, {
+                  name: "Premium Ads for 3 or more ads",
+                  dealsType: "premium",
+                  adId: "premium",
+                  rule: [
+                    {
+                      minItem: 3,
+                      pricePerItem: 389.99
+                    }
+                  ]
+                }
+              ];
+            }
+
+            if (customer.name && customer.deals) {
+  						var c = customersController._add(customer.name, customer.deals, function(err, result) {
+  							// res.negotiate() will determine if this is a validation error
+  				      // or some kind of unexpected server error, then call `res.badRequest()`
+  				      // or `res.serverError()` accordingly.
+  				      if (err) {
+  								sails.log('Customer not created for ' + customer.name);
+  							} else {
+  								sails.log('Customer created');
+  							}
+  						});
+  					}
+  				});
+
+  				res.ok('Done');
+        });
 			}
 		});
 	},

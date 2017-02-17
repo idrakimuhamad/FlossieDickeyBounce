@@ -24,7 +24,7 @@ module.exports = {
    *                     • deals    {Array}
    * @param  {Function} cb
    */
-   generate: function (inputs, cb) {
+   add: function (inputs, cb) {
     //  make sure the customer are not yet exist
     Customers.findOne({ name: inputs.name }).exec(function(err, customer) {
        if (err) Customers.findOne({ name: inputs.name }).exec(cb);
