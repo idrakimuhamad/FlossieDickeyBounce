@@ -10,14 +10,16 @@ import {
 import MainLayout from './components/layouts/main-layout';
 
 // Pages
-import Home from './components/pages/Home';
 import About from './components/pages/About';
+
+// Containers
+import CustomerListContainer from './containers/customer-list-container';
 
 export default (
 	<Router history={browserHistory}>
 		<Route component={MainLayout}>
 			<Route path="/">
-				<IndexRoute component={Home}></IndexRoute>
+				<IndexRoute component={CustomerListContainer}></IndexRoute>
 				<Route path="about" component={About} />
 			</Route>
 		</Route>

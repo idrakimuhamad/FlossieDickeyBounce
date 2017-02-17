@@ -1,14 +1,17 @@
 import React from 'react';
+import logo from './logo.svg';
+import './Home.css';
 
 export default function(props) {
 	return (
 		<div className="App">
-			<div>
-				<h3>The main layout</h3>
-				<main>
-					{props.children}
-				</main>
+			<div className="App-header">
+				<img src={logo} className="App-logo" alt="logo" />
+				<h2>Welcome to React</h2>
 			</div>
+			<main>
+				{props.children}
+			</main>
 		</div>
 	);
 }

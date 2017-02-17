@@ -51,11 +51,11 @@ module.exports.routes = {
   'post /api/defaultData': 'CustomersController.generateDefault',
 
   // Customers API
-  'get /api/customers/getAll': 'CustomersController.getAll',
+  'get /api/customers': 'CustomersController.getAll',
   'get /api/customers/:id': 'CustomersController.get',
 
   // Ads API
-  'get /api/ads/getAll': 'AdsController.getAll',
+  'get /api/ads': 'AdsController.getAll',
   'get /api/ads/:id': 'AdsController.get'
 
 };

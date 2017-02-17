@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import router from './router.js';
+import { Provider } from 'react-redux';
+import store from './stores/store';
+import router from './router';
 import './index.css';
 
 ReactDOM.render(
-  <div className="app-wrapper">{router}</div>,
+  <Provider store={store}>{router}</Provider>,
   document.getElementById('root')
 );
