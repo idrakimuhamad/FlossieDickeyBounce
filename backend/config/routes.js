@@ -46,6 +46,13 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   // Endpoints
+
+  // create default data
   'post /api/defaultData': 'CustomersController.generateDefault',
-  'get /api/getAll': 'CustomersController.getAll'
+
+  // Customers API
+  'get /api/customers/getAll': 'CustomersController.getAll',
+
+  // Ads API
+  'get /api/ads/getAll': 'AdsController.getAll'
 };
