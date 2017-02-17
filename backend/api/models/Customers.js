@@ -42,8 +42,8 @@ module.exports = {
      });
    },
 
-   get: function(name, cb) {
-     Customers.findOne({ name: name }).exec(cb);
+   get: function(id, cb) {
+     Customers.findOne({ id: id }).exec(cb);
    },
 
    getAll: function (cb) {

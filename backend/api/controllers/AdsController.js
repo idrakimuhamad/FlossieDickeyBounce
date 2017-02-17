@@ -7,9 +7,9 @@
 
 var adsController = {
   add: function(req, res) {
-    var name = req.params('name'),
-        price = req.params('price'),
-        type = req.params('type'),
+    var name = req.param('name'),
+        price = req.param('price'),
+        type = req.param('type'),
         data = {
           name: name,
           type: type,
@@ -34,7 +34,7 @@ var adsController = {
 	},
 
   get: function(req, res) {
-    var adId = req.params('id');
+    var adId = req.param('id');
 
 		Ads.get(adId, function (err, ad) {
 			if (err) return res.negotiate(err);

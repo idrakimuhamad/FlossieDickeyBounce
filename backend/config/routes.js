@@ -52,7 +52,10 @@ module.exports.routes = {
 
   // Customers API
   'get /api/customers/getAll': 'CustomersController.getAll',
+  'get /api/customers/:id': 'CustomersController.get',
 
   // Ads API
-  'get /api/ads/getAll': 'AdsController.getAll'
+  'get /api/ads/getAll': 'AdsController.getAll',
+  'get /api/ads/:id': 'AdsController.get'
+
 };

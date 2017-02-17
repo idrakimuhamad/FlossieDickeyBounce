@@ -144,6 +144,16 @@ var customersController = {
 		});
 	},
 
+  get: function(req, res) {
+    var customerId = req.param('id');
+
+		Customers.get(customerId, function (err, ad) {
+			if (err) return res.negotiate(err);
+
+			return res.json(ad);
+		});
+  },
+
 	getAll: function(req, res) {
 		Customers.getAll(function (err, customers) {
 			if (err) return res.negotiate(err);
