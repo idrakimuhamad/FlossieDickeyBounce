@@ -1,14 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
-import './Home.css';
+import Header from '../views/app-header';
 
 export default function(props) {
 	return (
-		<div className="App">
-			<div className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<h2>Welcome to React</h2>
-			</div>
+		<div className="app">
+			<Header />
 			<main>
 				{props.children}
 			</main>
