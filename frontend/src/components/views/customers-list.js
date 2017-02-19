@@ -8,11 +8,12 @@ export default function(props) {
       {props.customers.map(customer => {
 
         return (
-          <div key={customer.id} className="data-list-item">
-            <div className="details">
-              <Link to={'/customers/' + customer.id}>{customer.name}</Link>
-            </div>
-          </div>
+          <Link
+            key={customer.id}
+            to={'/customers/' + customer.id}
+            className="f6 link dim br-pill ba bw1 ph3 pv2 mb2 ml2 mr2 dib black ttc">
+            {customer.name}
+          </Link>
         );
 
       })}
