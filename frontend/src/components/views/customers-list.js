@@ -5,6 +5,10 @@ import { Link } from 'react-router';
 export default function(props) {
   return (
     <div className="data-list">
+			{props.loading ? 
+				<p>Loading...</p> : null				
+			}
+			
       {props.customers.map(customer => {
 
         return (
