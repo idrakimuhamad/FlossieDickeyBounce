@@ -1,27 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router';
+import AdLink from './ad-link';
 
 // Using "Stateless Functional Components"
 export default function(props) {
   return (
-    <div className="data-list">
+    <div className="dt-ns dt--fixed-ns ads-list">
 			{props.loading ? 
 				<p>Loading...</p> : null				
 			}
 			
       {props.ads.map(ad => {
-
         return (
-          <Link
-            key={ad.id}
-            to={'/browse?ad=' + ad.id}
-            className="f6 link dim br-pill ba bw1 ph3 pv2 mb2 ml2 mr2 dib black ttc">
-            {ad.name}
-          </Link>
+					<AdLink key={ad.id} ad={ad} />
         );
-
       })}
-
     </div>
   );
 }
