@@ -11,6 +11,7 @@ import MainLayout from './components/layouts/main-layout';
 
 // Pages
 import Home from './components/pages/Home';
+import Browse from './components/pages/Browse';
 
 // Containers
 // import CustomerListContainer from './containers/customer-list-container';
@@ -20,6 +21,7 @@ export default (
 		<Route component={MainLayout}>
 			<Route path="/">
 				<IndexRoute component={Home}></IndexRoute>
+				<Route path="browse" component={Browse} />
 			</Route>
 		</Route>
 	</Router>
