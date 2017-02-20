@@ -5,13 +5,13 @@ import AdLink from './ad-link';
 export default function(props) {
   return (
     <div className="dt-ns dt--fixed-ns ads-list">
-			{props.loading ? 
-				<p>Loading...</p> : null				
+			{props.loading ?
+				<p>Loading...</p> : null
 			}
-			
+
       {props.ads.map(ad => {
         return (
-					<AdLink key={ad.id} ad={ad} />
+					<AdLink key={ad.id} ad={ad} addToCart={props.addToCart} />
         );
       })}
     </div>

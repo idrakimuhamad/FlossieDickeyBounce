@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import CustomerList from '../views/customers-list';
 import * as customerApi from '../../api/customer-api';
 
-// Use name export for unconnected component test
 export class CustomerListContainer extends Component {
 	componentDidMount() {
-		customerApi.getCustomers();		
+		customerApi.getCustomers();
 	}
 
   render() {

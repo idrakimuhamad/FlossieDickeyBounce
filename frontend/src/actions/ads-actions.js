@@ -20,3 +20,10 @@ export function getAdSuccess(ad) {
 		ad
 	};
 }
+
+export function selectAd(adId) {
+	return {
+		type: types.SET_SELECTED_ADS,
+		adId
+	};
+}

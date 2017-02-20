@@ -11,15 +11,17 @@ const adsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case types.GET_ADS_REQUEST:
 			return Object.assign({}, state, { loading: action.loading, ads: [], ad: {} });
-			
+
 		case types.GET_ADS_SUCCESS:
 			return Object.assign({}, state, { loading: false, ads: action.ads });
 
 		case types.GET_AD_SUCCESS:
 			return Object.assign({}, state, { loading: false, ad: action.ad });
-			
+
 		case types.SET_SELECTED_ADS:
-			return Object.assign({}, state, { ads: state.selectedAds.push(action.adId) });
+			const { selectedAds } = state;
+
+			return Object.assign({}, state, { loading: false, selectedAds: [...selectedAds, action.adId] });
 
 		default:
 			return state;
