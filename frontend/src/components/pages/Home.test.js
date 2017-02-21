@@ -6,8 +6,8 @@ describe('components', () => {
 	describe('Home', () => {
 		it('Should render itself', () => {
 			const wrapper = shallow(<Home />)
-			
-			expect(wrapper.find('.home-page').hasClass('home-page')).toBe(true);
+
+			expect(wrapper.find('div').hasClass('home-page')).toBe(true);
 			expect(wrapper.find('h1').text()).toBe('Welkomen');
 			expect(wrapper.find('p').text()).toBe('Pick one of the customer to go through the checkout scenario.');
 		});
