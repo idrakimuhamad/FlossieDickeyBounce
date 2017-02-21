@@ -1,30 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as adsApi from '../../api/ads-api';
+import { getAds, addToCart } from '../../api/ads-api';
 import AdsList from '../views/ads-list';
-import CartCount from '../views/cart-count';
+import Button from '../views/button';
 
-export class BrowseContainer extends Component {
+export class BrowseContainer extends Component {	
 	componentDidMount() {
-		adsApi.getAds();
+		getAds();
 	}
 
 	_addToCart = (adId) => (e) => {
 		e.preventDefault();
-		adsApi.addToCart(adId);
-		console.log(this.props);
-	}
+		addToCart(adId);
+	}	
 
   render() {
-		console.log(this.props);
+		const { cart } = this.props;
+		let total = 0;
+		
+		cart.forEach((c) => {
+			total += c.count;
+		});
+		
+		const canCheckout = this.props.cart && this.props.cart.length > 0;
+		const checkoutUrl = canCheckout ? '/checkout?customer=' + this.props.customerId : '';
+		const checkoutText = canCheckout ? total + ' item'
+																			+ (total > 1 ? 's' : '')
+																			+ ' added. Checkout now' : '0 item';
+		const checkoutTitle = canCheckout ? total + ' item'
+																			+ (total > 1 ? 's' : '')
+																			+ ' in the cart' : 'No item added yet';
     return (
       <div>
 				<AdsList
-					loading={this.props.customerLoading}
+					loading={this.props.cartLoading}
 					ads={this.props.ads}
 					addToCart={this._addToCart} />
-				<CartCount
-					cart={this.props.cart} />
+				<div className="pv2">
+					<Button
+						href={checkoutUrl}
+						title={checkoutTitle}
+						text={checkoutText}
+						disabled={canCheckout}
+						bgColorClass="bg-mid-gray"
+						/>
+				</div>
       </div>
     );
   }
@@ -35,9 +55,9 @@ const mapStateToProps = function(store) {
 		cartLoading: store.adsState.loading,
 		cart: store.adsState.selectedAds,
 		ads: store.adsState.ads,
-		customerId: store.customersState.customerId,
-		customer: store.customersState.customer,
-		customerLoading: store.customersState.customerLoading
+		// customerId: store.customersState.customerId,
+		// customer: store.customersState.customer,
+		// customerLoading: store.customersState.customerLoading
 	};
 };
 

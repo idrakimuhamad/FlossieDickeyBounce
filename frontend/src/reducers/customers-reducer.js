@@ -3,8 +3,7 @@ import * as types from '../actions/action-types';
 const initialState = {
 	customerLoading: false,
 	customers: [],
-	customer: {},
-	customerId: null
+	customer: {}
 };
 
 const customersReducer = (state = initialState, action) => {
@@ -18,9 +17,6 @@ const customersReducer = (state = initialState, action) => {
 		case types.GET_CUSTOMER_SUCCESS:
 			return Object.assign({}, state, { customerLoading: false, customer: action.customer });
 			
-		case types.SET_CUSTOMER_ID:
-			return Object.assign({}, state, { customerId: action.customerId });
-
 		default:
 			return state;
 	}

@@ -31,3 +31,27 @@ export function addToCart(adId) {
 	store.dispatch(selectAd(adId));
 	return adId;
 }
+
+// Get selected ads details
+// export function getAdsCart(selectedAds) {
+	// const checkoutAds = {
+	// 	ids: [],
+	// 	adsObj: []
+	// };
+	// const checkoutAds = [];
+	// 
+	// if (selectAds.length) {
+	// 	selectAds.forEach((ad) => {
+	// 		// get the ad details
+	// 		adsApi
+	// 		.getAd(ad)
+	// 		.then((response) => {
+	// 			const { data } = response;
+	// 			
+	// 			checkoutAds.push(data);
+	// 		});
+	// 	});
+	// }
+	// store.dispatch(selectAd());
+	// return adId;
+// }

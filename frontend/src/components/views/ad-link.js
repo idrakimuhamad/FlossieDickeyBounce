@@ -4,7 +4,7 @@ import React from 'react';
 export default function(props) {
   return (
 		<div className="dtc-ns pa2">
-      <a href="#"
+      <a href=""
         className="db link black"
         onClick={props.addToCart(props.ad.id)}>
         <div className="w-100 bg-white br3 pa3 pa4-ns mv3 ba b--black-10 grow">
