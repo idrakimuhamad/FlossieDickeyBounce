@@ -20,10 +20,3 @@ export function getCustomerSuccess(customer) {
 		customer
 	};
 }
-
-export function setCustomerId(customerId) {
-	return {
-		type: types.SET_CUSTOMER_ID,
-		customerId
-	};
-}
