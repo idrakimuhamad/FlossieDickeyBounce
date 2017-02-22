@@ -11,7 +11,7 @@ export default function(props) {
 
       {props.ads.map(ad => {
         return (
-					<AdLink key={ad.id} ad={ad} addToCart={props.addToCart} />
+					<AdLink customer={props.customer} key={ad.id} ad={ad} addToCart={props.addToCart} />
         );
       })}
     </div>
