@@ -21,12 +21,12 @@ const adsReducer = (state = initialState, action) => {
 
 		case types.SET_SELECTED_ADS:
 			const { ads, selectedIds, selectedAds } = state;
-			let newSelectedId = [];
-			let newSelectedAds = [];
+			let newSelectedId;
+			let newSelectedAds;
 			let adDetails = null;
-			
-			if (selectedIds.indexOf(action.adId) < 0) {
-				
+
+			if (selectedIds && selectedIds.indexOf(action.adId) < 0) {
+
 				// find the ad
 				for (let i = 0; i < ads.length; i++) {
 					if (ads[i].id === action.adId) {
@@ -37,8 +37,8 @@ const adsReducer = (state = initialState, action) => {
 					}
 				}
 			} else {
-				newSelectedId = [ ...selectedIds ];
-				newSelectedAds = [ ...selectedAds ];
+				newSelectedId = selectedIds ? [ ...selectedIds ] : [];
+				newSelectedAds = selectedAds ? [ ...selectedAds ] : [];
 				newSelectedAds.forEach((ad) => {
 					if (ad.id === action.adId) {
 						ad.count += 1;

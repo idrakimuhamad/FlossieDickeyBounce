@@ -1,27 +1,32 @@
 import axios from 'axios';
 import store from '../stores/store';
 import { getCustomersRequest, getCustomersSuccess, getCustomerSuccess } from '../actions/customer-actions';
-
-const endpoints = "http://localhost:1337/api";
+import { endpoint } from './endpoints';
 
 // Get all customers
 export function getCustomers() {
 	store.dispatch(getCustomersRequest(true));
-	
-	return axios.get(endpoints + '/customers')
+
+	return axios.get(endpoint + '/customers')
 		.then(response => {
 			store.dispatch(getCustomersSuccess(response.data));
 			return response;
-		});
+		})
+		.catch(function (error) {
+	    console.error(error);
+	  });
 }
 
 // Get customer
-export function getCustomer(customerId) {
+export function getCustomer(name) {
 	store.dispatch(getCustomersRequest(true));
-	
-	return axios.get(endpoints + '/customers/' + customerId)
+
+	return axios.get(endpoint + '/customers/' + name)
 		.then(response => {
 			store.dispatch(getCustomerSuccess(response.data));
 			return response;
-		});
+		})
+		.catch(function (error) {
+	    console.error(error);
+	  });
 }

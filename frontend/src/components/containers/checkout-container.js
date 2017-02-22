@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import _ from 'lodash';
+import store from '../../stores/store';
+import { setTotalPrice } from '../../actions/checkout-actions';
 import { getCustomer } from '../../api/customer-api';
-import { setPrice } from '../../api/checkout-api';
-import CheckoutList from '../views/checkout-list';
+import CheckoutItem from '../views/checkout-item';
 import Button from '../views/button';
 
 export class CheckoutContainer extends Component {
 	componentDidMount() {
 		// get the customer details
 		getCustomer(this.props.customerId);
-		
+
 		// calculate total price
 		this._dispatchPrice();
 	}
@@ -87,14 +89,36 @@ export class CheckoutContainer extends Component {
 	}
 
 	_calculateNormalPrice = (price, count) => {
-		return price * count;
+		return parseFloat(this._fixedDecimal(price * count));
 	}
-	
+
+	_totalPriceItemDiscount = (customer, ad) => {
+		const deals = customer && customer.deals;
+		const customersRule = deals && _.find(deals, {
+		  dealsType: ad.adType });
+		let price = 0, haveDiscount = false;
+
+		if (customersRule) {
+		  price += this._priceRule(customersRule, ad.price, ad.count);
+
+		  // if different price, assume there's discount
+		  if (price !== this._calculateNormalPrice(ad.price, ad.count)) {
+		    haveDiscount = !haveDiscount;
+		  }
+		} else {
+		  price += this._calculateNormalPrice(ad.price, ad.count);
+		}
+
+		return {
+			price, haveDiscount
+		};
+	}
+
 	_dispatchPrice = () => {
-		const finalPrice = this._totalPrice();
-		setPrice(finalPrice);
+		const finalPrice = this._fixedDecimal(this._totalPrice());
+		store.dispatch(setTotalPrice(finalPrice));
 	}
-	
+
 	_fixedDecimal = (number) => {
 		return number.toFixed(2);
 	}
@@ -102,30 +126,42 @@ export class CheckoutContainer extends Component {
   render() {
     return (
       <div>
-				<CheckoutList
-					ads={this.props.cart}
-					customerId={this.props.customerId}
-					customer={this.props.customer}
-					priceRule={this._priceRule}
-				 	normalPrice={this._calculateNormalPrice}
-					fixedDecimal={this._fixedDecimal}/>
+				<div className="checkout-list mw8">
+					{this.props.cart.length === 0 ?
+						<p className="f5 lh-copy no-item-selected">
+							You have no item added into the cart. <Link to={'/browse?customer=' + this.props.customer.id}>
+							Go back to the browse page</Link> to pick you package.
+						</p>
+						:
+						this.props.cart.map(ad => {
+			        return (
+								<CheckoutItem
+									key={ad.id}
+									ad={ad}
+									priceDiscount={this._totalPriceItemDiscount(this.props.customer, ad)}
+								 />
+			        );
+			      })
+					}
+		    </div>
 				{this.props.cart.length > 0 ?
-					<div>
+					<div className="checkout-footer">
 						<div className="mt4">
-							<h3 className="f3 lh-title">Total: ${this._fixedDecimal(this.props.totalPrice)}</h3>
+							<h3 className="f3 lh-title total-price">Total: ${this.props.totalPrice}</h3>
 						</div>
 						<div className="mt4">
 							<Button
 								href={'/browse?customer=' + this.props.customerId}
-								title="Back to ad list"
+								title="Back to ads list"
 								text="Back to ads list"
-								className="mr2"
+								className="mr2 back-to-browse"
 								bgColorClass="bg-mid-gray"
 								/>
 							<Button
 								href="/complete"
 								title="Checkout"
 								text="Checkout"
+								className="checkout"
 								bgColorClass="bg-mid-gray"
 								/>
 						</div>

@@ -7,7 +7,7 @@ export default function(props) {
 	const color = props.colorClass ? props.colorClass : 'white';
 	const borderRadius = props.radius ? 'br' + props.radius : 'br0';
 	const className = props.className ? props.className : '';
-	
+
   return (
 		<Link
 			to={props.href}

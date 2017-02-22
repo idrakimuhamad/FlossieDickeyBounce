@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAds, addToCart } from '../../api/ads-api';
+import store from '../../stores/store';
+import { selectAd } from '../../actions/ads-actions';
+import { getAds } from '../../api/ads-api';
 import { getCustomer } from '../../api/customer-api';
 import AdsList from '../views/ads-list';
 import Button from '../views/button';
 
-export class BrowseContainer extends Component {	
+export class BrowseContainer extends Component {
 	componentDidMount() {
 		getAds();
 		getCustomer(this.props.customerId);
@@ -13,17 +15,17 @@ export class BrowseContainer extends Component {
 
 	_addToCart = (adId) => (e) => {
 		e.preventDefault();
-		addToCart(adId);
-	}	
+		store.dispatch(selectAd(adId));
+	}
 
   render() {
 		const { cart } = this.props;
 		let total = 0;
-		
+
 		cart.forEach((c) => {
 			total += c.count;
 		});
-		
+
 		const canCheckout = this.props.cart && this.props.cart.length > 0;
 		const checkoutUrl = canCheckout ? '/checkout?customer=' + this.props.customerId : '';
 		const checkoutText = canCheckout ? total + ' item'
@@ -33,8 +35,8 @@ export class BrowseContainer extends Component {
 																			+ (total > 1 ? 's' : '')
 																			+ ' in the cart' : 'No item added yet';
     return (
-      <div>				
-        <h1 className="f3 lh-copy">Browse (as <span className="ttc">{this.props.customer.name}</span>)</h1>
+      <div>
+        <h1 className="f3 lh-copy">Browse (as <span className="ttc customer-name">{this.props.customer.name}</span>)</h1>
         <p className="f5 lh-copy">
           Pick the ad package to be added into your cart
         </p>
@@ -64,9 +66,7 @@ const mapStateToProps = function(store) {
 		cartLoading: store.adsState.loading,
 		cart: store.adsState.selectedAds,
 		ads: store.adsState.ads,
-		// customerId: store.customersState.customerId,
-		customer: store.customersState.customer,
-		// customerLoading: store.customersState.customerLoading
+		customer: store.customersState.customer
 	};
 };
 

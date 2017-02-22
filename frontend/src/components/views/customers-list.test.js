@@ -1,33 +1,10 @@
-// import React from 'react';
-// import { Link } from 'react-router';
-// 
-// // Using "Stateless Functional Components"
-// export default function(props) {
-//   return (
-//     <div className="data-list">
-//       {props.customers.map(customer => {
-// 
-//         return (
-//           <Link
-//             key={customer.id}
-//             to={'/browse?customer=' + customer.id}
-//             className="f6 link dim br-pill ba bw1 ph3 pv2 mb2 ml2 mr2 dib black ttc">
-//             {customer.name}
-//           </Link>
-//         );
-// 
-//       })}
-// 
-//     </div>
-//   );
-// }
-
 import React from 'react';
 import { shallow } from 'enzyme';
 import CustomerList from './customers-list';
 
 function setup() {
 	const props = {
+		loading: true,
 		customers: [
 			{
 				"name": "default",
@@ -75,9 +52,9 @@ function setup() {
 			}
 		]
 	};
-	
+
 	const wrapper = shallow(<CustomerList {...props} />);
-	
+
 	return {
 		props,
 		wrapper
@@ -86,15 +63,33 @@ function setup() {
 
 describe('components', () => {
 	describe('Customer List', () => {
-		it('Should render itself', () => {
-			const { wrapper } = setup();
-			
+		it('Should render itself and subcomponent', () => {
+			const { wrapper, props } = setup();
+
 			expect(wrapper.find('.data-list').length).toEqual(1);
+
+			const LinkProps = wrapper.find('Link').first().props();
+
+			expect(LinkProps.to).toEqual('/browse?customer=' + props.customers[0].name);
+			expect(LinkProps.children).toEqual(props.customers[0].name);
 		});
-		
+
+		it('Should render loading when loading is true', () => {
+			const { wrapper } = setup();
+			expect(wrapper.find('.loading-text').text()).toEqual('Loading...');
+		});
+
+		it('Should not render loading when loading is false', () => {
+			const { props } = setup();
+			props.loading = !props.loading;
+			const notLoadingWrapper = shallow(<CustomerList {...props} />);
+
+			expect(notLoadingWrapper.find('.loading-text').length).toBe(0);
+		});
+
 		it('Should render at least 1 customer', () => {
 			const { wrapper } = setup();
-			
+
 			expect(wrapper.find('Link').length).toBeGreaterThan(0);
 		});
 	});
