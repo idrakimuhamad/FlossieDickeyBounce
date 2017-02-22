@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import CheckoutItem from './checkout-item';
 
-// Using "Stateless Functional Components"
-export default function(props) {
+export default function(props) {	
   return (
     <div className="checkout-list mw8">
 			{props.loading ?
@@ -20,7 +19,12 @@ export default function(props) {
 	        return (
 						<CheckoutItem
 							key={ad.id}
-							ad={ad} />
+							ad={ad}
+							customer={props.customer}
+							priceRule={props.priceRule}
+							normalPrice={props.normalPrice}
+							fixedDecimal={props.fixedDecimal}
+						 />
 	        );
 	      })
 			}
