@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { getCustomer } from '../../api/customer-api';
+import { setPrice } from '../../api/checkout-api';
 import CheckoutList from '../views/checkout-list';
 import Button from '../views/button';
 
@@ -9,6 +10,9 @@ export class CheckoutContainer extends Component {
 	componentDidMount() {
 		// get the customer details
 		getCustomer(this.props.customerId);
+		
+		// calculate total price
+		this._dispatchPrice();
 	}
 
 	// total price calculation, including discounts
@@ -37,7 +41,7 @@ export class CheckoutContainer extends Component {
 		return total;
 	}
 
-	_priceRule(customersRule, price, count) {
+	_priceRule = (customersRule, price, count) => {
 		let finalPrice = 0;
 
 		if (customersRule.dealsType === 'classic') {
@@ -82,8 +86,17 @@ export class CheckoutContainer extends Component {
 		return finalPrice;
 	}
 
-	_calculateNormalPrice(price, count) {
+	_calculateNormalPrice = (price, count) => {
 		return price * count;
+	}
+	
+	_dispatchPrice = () => {
+		const finalPrice = this._totalPrice();
+		setPrice(finalPrice);
+	}
+	
+	_fixedDecimal = (number) => {
+		return number.toFixed(2);
 	}
 
   render() {
@@ -92,11 +105,14 @@ export class CheckoutContainer extends Component {
 				<CheckoutList
 					ads={this.props.cart}
 					customerId={this.props.customerId}
-					customer={this.props.customer} />
+					customer={this.props.customer}
+					priceRule={this._priceRule}
+				 	normalPrice={this._calculateNormalPrice}
+					fixedDecimal={this._fixedDecimal}/>
 				{this.props.cart.length > 0 ?
 					<div>
 						<div className="mt4">
-							<h3 className="f3 lh-title">Total: ${this._totalPrice()}</h3>
+							<h3 className="f3 lh-title">Total: ${this._fixedDecimal(this.props.totalPrice)}</h3>
 						</div>
 						<div className="mt4">
 							<Button
@@ -125,7 +141,8 @@ const mapStateToProps = function(store) {
 	return {
 		cart: store.adsState.selectedAds,
 		ads: store.adsState.ads,
-		customer: store.customersState.customer
+		customer: store.customersState.customer,
+		totalPrice: store.checkoutState.totalPrice
 	};
 };
 
