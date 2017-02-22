@@ -29,3 +29,5 @@ I choose to build this with Redux even though I have not built something more th
 Getting gripe around its mental model is challenging especially when preparing the actions creator and the reducer but it was fun.
 
 For the CSS, I'm using [Tachyons](http://tachyons.io/) CSS toolkit as I've always a fan of this toolkit, for quick interface implementation.
+
+In terms of unit testing, this is honestly my very first time writing test for React so apologize for any smelly test script. Actually my very first where I write so much test for every components, as I've never been TDD before since my working environment has been more focus on delivering as fast as we can and unit has always been neglected.
