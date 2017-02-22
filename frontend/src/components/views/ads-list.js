@@ -6,7 +6,7 @@ export default function(props) {
   return (
     <div className="dt-ns dt--fixed-ns ads-list">
 			{props.loading ?
-				<p>Loading...</p> : null
+				<p className="loading">Loading...</p> : null
 			}
 
       {props.ads.map(ad => {

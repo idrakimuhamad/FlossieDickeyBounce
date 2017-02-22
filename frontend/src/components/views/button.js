@@ -7,12 +7,10 @@ export default function(props) {
 	const color = props.colorClass ? props.colorClass : 'white';
 	const borderRadius = props.radius ? 'br' + props.radius : 'br0';
 	const className = props.className ? props.className : '';
-	const clickFunction = props.onClick ? props.onClick : null;
 	
   return (
 		<Link
 			to={props.href}
-			onClick={clickFunction}
 			className={'f6 link dim ph3 pv2 mb2 dib ' + borderRadius + ' ' + bg + ' ' + color + ' ' + className }
 			title={props.title}>
 			{props.text}

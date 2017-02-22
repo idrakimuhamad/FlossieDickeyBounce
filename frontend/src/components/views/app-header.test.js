@@ -1,14 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Header from './app-header';
 
 describe('components', () => {
 	describe('Header', () => {
 		it('Should render itself', () => {
-			const wrapper = shallow(<Header />)
+			const wrapper = mount(<Header />)
 			
 			expect(wrapper.find('header').hasClass('app-header')).toBe(true);
-			expect(wrapper.find('h1').text()).toBe('Ad Shop');
+		});
+		
+		it('The anchor should point to root with "Ad Shop" text', () => {
+			const wrapper = mount(<Header />);	
+			
+			expect(wrapper.find('a').text()).toBe('Ad Shop');
+			expect(wrapper.find({ href: '/' }).length).toBe(1);
 		});
 	});
 });
