@@ -36,23 +36,19 @@ export default function(props) {
   				<h2 className="f3 f2-l tc center black-70">
             <span 
 							className={haveStandoutDeal && props.ad.adType === 'standout' ? 
-							'db strike f4 f3-l' : 'db'}>${props.ad.price}
+							'regular-price db strike f4 f3-l' : 'regular-price db'}>${props.ad.price}
 						</span>
 						
 						{ haveStandoutDeal && props.ad.adType === 'standout' ?
-							<span className="db">${standoutPrice}</span> : null
+							<span className="db discount-price">${standoutPrice}</span> : null
 						}
           </h2>
-					{ haveClassicDeal && props.ad.adType === 'classic' ?
-						<p className="f6 lh-copy measure ma0">
-							Get the price of <strong>{classicRule.forItemPrice}</strong>  items when you add <strong>{classicRule.minItem}</strong> items
-						</p> : null
-					}
-					
-					{ havePremiumDeal && props.ad.adType === 'premium' ?
-						<p className="f6 lh-copy measure ma0">
-							Get discounted price of <strong>${premiumRule.pricePerItem}</strong> per item when you add <strong>{premiumRule.minItem}</strong> or more items
-						</p> : null
+					{ (haveClassicDeal && props.ad.adType === 'classic') ||
+					 	(havePremiumDeal && props.ad.adType === 'premium') ?						
+						<p className={'f6 lh-copy measure ma0 ' + (haveClassicDeal ? 'classic-discount' : 'premium-discount')}>
+							{ props.ad.adType === 'classic' ? 'Get the price of ' + classicRule.forItemPrice + ' items when you add ' + classicRule.minItem + ' items' :
+							'Get discounted price of $ ' + premiumRule.pricePerItem + ' per item when you add ' + premiumRule.minItem + ' or more items'
+						}</p> : null
 					}
         </div>
       </a>
