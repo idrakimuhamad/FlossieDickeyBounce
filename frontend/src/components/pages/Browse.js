@@ -8,10 +8,6 @@ export default class Browse extends Component {
 		
     return (
       <div className="pa4 browse-page">
-        <h1 className="f3 lh-copy">Browse</h1>
-        <p className="f5 lh-copy">
-          Pick the ad package to be added into your cart
-        </p>
 				<BrowseContainer customerId={customerId} />
       </div>
     );
