@@ -34,9 +34,9 @@ var adsController = {
 	},
 
   get: function(req, res) {
-    var adId = req.param('id');
+    var type = req.param('type');
 
-		Ads.get(adId, function (err, ad) {
+		Ads.get(type, function (err, ad) {
 			if (err) return res.negotiate(err);
 
 			return res.json(ad);

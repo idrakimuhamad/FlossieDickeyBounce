@@ -145,9 +145,9 @@ var customersController = {
 	},
 
   get: function(req, res) {
-    var customerId = req.param('id');
+    var customerName = req.param('name');
 
-		Customers.get(customerId, function (err, ad) {
+		Customers.get(customerName, function (err, ad) {
 			if (err) return res.negotiate(err);
 
 			return res.json(ad);

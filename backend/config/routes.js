@@ -52,10 +52,10 @@ module.exports.routes = {
 
   // Customers API
   'get /api/customers': 'CustomersController.getAll',
-  'get /api/customers/:id': 'CustomersController.get',
+  'get /api/customers/:name': 'CustomersController.get',
 
   // Ads API
   'get /api/ads': 'AdsController.getAll',
-  'get /api/ads/:id': 'AdsController.get'
+  'get /api/ads/:type': 'AdsController.get'
 
 };

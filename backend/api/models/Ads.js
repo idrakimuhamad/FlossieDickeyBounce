@@ -36,8 +36,8 @@ module.exports = {
    });
  },
 
- get: function(id, cb) {
-   Ads.findOne({ id: id }).exec(cb);
+ get: function(type, cb) {
+   Ads.findOne({ adType: type }).exec(cb);
  },
 
  getAll: function (cb) {
