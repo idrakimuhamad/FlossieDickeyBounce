@@ -13,6 +13,7 @@ import MainLayout from './components/layouts/main-layout';
 import Home from './components/pages/Home';
 import Browse from './components/pages/Browse';
 import Checkout from './components/pages/Checkout';
+import Complete from './components/pages/Complete';
 
 export default (
 	<Router history={browserHistory}>
@@ -21,6 +22,7 @@ export default (
 				<IndexRoute component={Home}></IndexRoute>
 				<Route path="browse" component={Browse} />
 				<Route path="checkout" component={Checkout} />
+				<Route path="complete" component={Complete} />
 			</Route>
 		</Route>
 	</Router>
