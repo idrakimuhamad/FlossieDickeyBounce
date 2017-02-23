@@ -150,7 +150,11 @@ var customersController = {
 		Customers.get(customerName, function (err, ad) {
 			if (err) return res.negotiate(err);
 
-			return res.json(ad);
+      if (ad) {
+        return res.json(ad);
+      } else {
+        return res.notFound();
+      }
 		});
   },
 
