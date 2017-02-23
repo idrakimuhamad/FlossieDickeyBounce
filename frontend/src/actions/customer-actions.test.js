@@ -33,5 +33,15 @@ describe('actions', () => {
 
 	    expect(actions.getCustomerSuccess(customer)).toEqual(expectedAction);
 		});
+		
+		it('should create an action when requesting customer data failed', () => {
+			const customer = null;
+	    const expectedAction = {
+	      type: types.GET_CUSTOMER_FAIL,
+	      customer
+	    };
+
+	    expect(actions.getCustomerFail(customer)).toEqual(expectedAction);
+		});
 	})
 });
