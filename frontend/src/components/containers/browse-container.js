@@ -12,6 +12,12 @@ export class BrowseContainer extends Component {
 		getAds();
 		getCustomer(this.props.customerId);
 	}
+	
+	componentDidUpdate() {
+		if (this.props.notFound) {
+			location.href = location.origin;
+		}
+	}
 
 	_addToCart = (adId) => (e) => {
 		e.preventDefault();
@@ -66,7 +72,8 @@ const mapStateToProps = function(store) {
 		cartLoading: store.adsState.loading,
 		cart: store.adsState.selectedAds,
 		ads: store.adsState.ads,
-		customer: store.customersState.customer
+		customer: store.customersState.customer,
+		notFound: store.customersState.notFound
 	};
 };
 

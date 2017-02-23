@@ -16,6 +16,12 @@ export class CheckoutContainer extends Component {
 		// calculate total price
 		this._dispatchPrice();
 	}
+	
+	componentDidUpdate() {
+		if (this.props.notFound) {
+			location.href = location.origin;
+		}
+	}
 
 	// total price calculation, including discounts
 	// this, ideally should be done by the backend,
@@ -177,6 +183,7 @@ const mapStateToProps = function(store) {
 	return {
 		cart: store.adsState.selectedAds,
 		ads: store.adsState.ads,
+		notFound: store.customersState.notFound,
 		customer: store.customersState.customer,
 		totalPrice: store.checkoutState.totalPrice
 	};
