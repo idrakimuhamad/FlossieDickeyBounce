@@ -7,6 +7,8 @@ This app was built using [Sailsjs](http://sailsjs.com/get-started) for its backe
 #### Backend
 + Navigate to the backend folder, and run `npm install` or `yarn install`
 + To start the app, run `sails lift`. The server should be running on port `1337` by default
++ To add default data, you need to use sent a `POST` request using POSTMAN or curl to this endpoint:
+  `http://localhost:1337/api/defaultData`
 
 #### Frontend
 + Navigate to the backend folder, and run `npm install` or `yarn install`
