@@ -20,3 +20,10 @@ export function getCustomerSuccess(customer) {
 		customer
 	};
 }
+
+export function getCustomerFail(customer) {
+	return {
+		type: types.GET_CUSTOMER_FAIL,
+		customer
+	};
+}

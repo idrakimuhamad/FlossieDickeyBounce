@@ -3,7 +3,8 @@ import * as types from '../actions/action-types';
 const initialState = {
 	customerLoading: false,
 	customers: [],
-	customer: {}
+	customer: {},
+	notFound: false
 };
 
 const customersReducer = (state = initialState, action) => {
@@ -15,7 +16,10 @@ const customersReducer = (state = initialState, action) => {
 			return Object.assign({}, state, { customerLoading: false, customers: action.customers });
 
 		case types.GET_CUSTOMER_SUCCESS:
-			return Object.assign({}, state, { customerLoading: false, customer: action.customer });
+			return Object.assign({}, state, { customerLoading: false, customer: action.customer, notFound: false });
+			
+		case types.GET_CUSTOMER_FAIL:
+			return Object.assign({}, state, { customerLoading: false, notFound: true });
 
 		default:
 			return state;

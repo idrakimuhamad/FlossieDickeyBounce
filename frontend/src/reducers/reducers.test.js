@@ -11,7 +11,8 @@ describe('Reducer', () => {
 	    ).toEqual({
 				customerLoading: false,
 				customers: [],
-				customer: {}
+				customer: {},
+				notFound: false
 			});
 	  });
 
@@ -36,7 +37,7 @@ describe('Reducer', () => {
 	      })
 	    ).toEqual({
 				customerLoading: false,
-				customers: [],
+				customers: []
 			});
 	  });
 
@@ -49,6 +50,19 @@ describe('Reducer', () => {
 	    ).toEqual({
 				customerLoading: false,
 				customer: {},
+				notFound: false
+			});
+	  });
+		
+		it('should handle GET_CUSTOMER_FAIL', () => {
+	    expect(
+	      customersReducer([], {
+	        type: types.GET_CUSTOMER_FAIL,
+	        customer: null
+	      })
+	    ).toEqual({
+				customerLoading: false,
+				notFound: true
 			});
 	  });
 	});

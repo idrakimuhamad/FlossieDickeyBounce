@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../stores/store';
-import { getCustomersRequest, getCustomersSuccess, getCustomerSuccess } from '../actions/customer-actions';
+import { getCustomersRequest, getCustomersSuccess, getCustomerSuccess, getCustomerFail } from '../actions/customer-actions';
 import { endpoint } from './endpoints';
 
 // Get all customers
@@ -24,9 +24,10 @@ export function getCustomer(name) {
 	return axios.get(endpoint + '/customers/' + name)
 		.then(response => {
 			store.dispatch(getCustomerSuccess(response.data));
+			
 			return response;
 		})
 		.catch(function (error) {
-	    console.error(error);
+	    store.dispatch(getCustomerFail(null));
 	  });
 }
